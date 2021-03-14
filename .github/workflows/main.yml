@@ -1,4 +1,4 @@
-name: Super-Linter
+name: Health check extravaganza
 
 # Triggers the workflow on pull request events for the master branch
 on:
@@ -6,27 +6,9 @@ on:
     branches: [ master ]
 
 jobs:
-  super-lint:
-    name: Lint code base
+  version_check:
     runs-on: ubuntu-latest
-
+    name: Checks APP_VERSION and CHANGELOG.md files for updates.
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Super-Linter
-        uses: github/super-linter@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  hello_world_job:
-    runs-on: ubuntu-latest
-    name: A job to say hello
-    steps:
-    - name: Hello world action step
-      id: hello
-      uses: actions/hello-world-javascript-action@v1.1
-      with:
-        who-to-greet: 'Mona the Octocat'
-    # Use the output from the `hello` step
-    - name: Get the output time
-      run: echo "The time was ${{ steps.hello.outputs.time }}"
+    - name: Version check action
+      uses: mwcodebase/versioning-checker@v2.2
